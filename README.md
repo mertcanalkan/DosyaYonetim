@@ -4,4 +4,4 @@
  
 ---
 ### Veri Tabanı Şeması
-![Database](![DosyaYonetimDb](https://github.com/alkanmert/DosyaYonetim/assets/73124727/d0d0c31d-a43b-43b2-8ed4-c0fbeb706d82))
+![DosyaYonetimDb](https://github.com/alkanmert/DosyaYonetim/assets/73124727/3120a204-7ebd-46f6-9900-8354a01d3901)
