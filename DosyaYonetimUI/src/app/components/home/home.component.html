@@ -1,0 +1,33 @@
+<div class="container">
+    <!--<div *ngFor="let dosya of dosyalar">
+        <h1>{{dosya.Adi}}</h1>
+        <p>
+            <b>Kategori : </b>{{dosya.KategoriAdi}}
+            <b> Yayın Tarihi : </b>{{dosya.Tarih}}
+            <b> Paylaşan : </b>{{dosya.UyeKadi}}
+        </p>
+    </div>-->
+    <h1>Son Eklenen Dosyalar</h1>
+    <mat-accordion *ngFor="let dosya of dosyalar">
+        <br>
+        <mat-expansion-panel hideToggle>
+          <mat-expansion-panel-header style="margin-top: 20px;">
+            <mat-panel-title>
+              <h3>{{dosya.Adi}}</h3>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <p>
+            <b>Kategori : </b><a href="#" [routerLink]="['/kategori',dosya.KategoriId]"> {{dosya.KategoriAdi}} </a> &nbsp;
+            <b> Yayın Tarihi : </b>{{dosya.Tarih}} &nbsp;
+            <b> Paylaşan : </b><a href="#" [routerLink]="['/uyedosya',dosya.UyeId]"> {{dosya.UyeKadi}} </a> &nbsp;
+            
+            <b>İndirmek İçin :</b>
+            <button mat-icon-button matTooltip="Dosyayı İndir">
+                <mat-icon arial-label="label">download</mat-icon> &nbsp;
+            </button>
+            <a style="text-decoration: none; color: #2c8f9c98; font-weight: bold;" href="#" [routerLink]="['/dosya',dosya.DosyaId]"> Dosyaya git</a> 
+          </p>
+        </mat-expansion-panel>    
+    </mat-accordion>
+</div>
+

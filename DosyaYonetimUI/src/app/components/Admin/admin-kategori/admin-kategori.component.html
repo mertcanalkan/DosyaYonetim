@@ -1,0 +1,39 @@
+<div class="container">
+    <h2>Kategoriler</h2>
+    <button  style="background-color:#2c8f9c98;" mat-fab matTooltip="Kategori Ekle" (click)="Ekle()">
+        <mat-icon aria-label="label">add</mat-icon>
+    </button>
+    <p>&nbsp;</p>
+    <mat-table [dataSource]="dataSource" matSort class="mat-elevation-z6">
+        <ng-container matColumnDef="KategoriAdi">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Kategori Adı
+            </mat-header-cell>
+            <mat-cell *matCellDef="let kayit">{{kayit.KategoriAdi}}</mat-cell>
+        </ng-container> 
+        <ng-container matColumnDef="KatDosyaSay">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Dosya Sayısı
+            </mat-header-cell>
+            <mat-cell *matCellDef="let kayit">{{kayit.KatDosyaSay}}</mat-cell>
+        </ng-container> 
+        
+        <ng-container matColumnDef="detay">
+            <mat-header-cell *matHeaderCellDef>İşlemler
+            </mat-header-cell>
+            <mat-cell *matCellDef="let kayit">    
+                <button mat-icon-button matTooltip="Dosya Liste" color="primary" [routerLink]="['/admin/dosya',kayit.KategoriId]">
+                    <mat-icon arial-label="label">list</mat-icon>
+                </button>
+                <button mat-icon-button matTooltip="Kategori Düzenle" color="primary" (click)="Duzenle(kayit)">
+                    <mat-icon arial-label="label">edit</mat-icon>
+                </button>
+                <button mat-icon-button matTooltip="Kategori Sil" color="warn" (click)="Sil(kayit)"> 
+                    <mat-icon arial-label="label">delete</mat-icon>
+                </button>  
+            </mat-cell>
+        </ng-container>
+    
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+    <mat-paginator [pageSizeOptions]="[5,10,25,100]" showFirstLastButtons></mat-paginator>
+</div>

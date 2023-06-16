@@ -1,0 +1,15 @@
+<div class="container">
+    <h1>{{kat.KategoriAdi}} Kategorisi</h1>
+    <h2 style="color: rgb(71, 71, 71);" *ngIf="dosyalar.length==0"><hr> Henüz bu kategoride dosya ekleme işlemi gerçekleşmedi ! </h2>
+    <div *ngFor="let dosya of dosyalar">
+        <hr>
+        <h2>{{dosya.Adi}}</h2>
+        
+        <p>
+            <b>Kategori : </b> {{dosya.KategoriAdi}}&nbsp;
+            <b> Paylaşan : </b><a href="#" [routerLink]="['/uyedosya',dosya.UyeId]"> {{dosya.UyeKadi}} </a> &nbsp;
+            <b>Yayın Tarihi : </b> {{dosya.Tarih}}&nbsp;
+            <a href="#" [routerLink]="['/dosya',dosya.DosyaId]">Görüntüle</a>
+        </p>
+    </div>
+</div>

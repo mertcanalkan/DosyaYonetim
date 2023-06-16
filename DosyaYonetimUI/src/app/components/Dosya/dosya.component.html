@@ -1,0 +1,27 @@
+<div class="container" *ngIf="dosya">
+    <h1>{{dosya.Adi}}</h1>
+    <b>Kategori : </b>{{dosya.KategoriAdi}} &nbsp;
+    <b>Yayın Tarihi : </b>{{dosya.Tarih}} &nbsp;
+    <b>Paylaşan : </b>{{dosya.UyeKadi}} &nbsp;
+    <hr>
+     <button mat-icon-button matTooltip="Görüntülenme Sayısı">
+        <mat-icon arial-label="label">visibility</mat-icon> &nbsp;
+    </button>
+    <b>{{dosya.Goruntulenme}}</b>
+    <hr>
+    <h1>Yorumlar</h1>
+    <div *ngFor="let yorum of yorumlar">
+        <b> Paylaşan : </b> {{yorum.KullaniciAdi}} &nbsp;
+        <b>Yayın Tarihi : </b> {{yorum.Tarih}}&nbsp;
+        <p>{{yorum.YorumIcerik}}</p>
+        <hr>
+    </div>
+    <p *ngIf="!apiServis.oturumKontrol()">Yorum Yazabilmek İçin <a style="color: red; text-decoration: none;" href="#" [routerLink]="['/login']">Oturum Açınız !</a></p>
+    <div *ngIf="apiServis.oturumKontrol()">
+        <mat-form-field appearance="outline">
+            <mat-label>Yorumunuz</mat-label>
+            <textarea matInput placeholder="Yorumunuz" #yorumMetni></textarea>
+        </mat-form-field>
+        <button mat-raised-button color="primary" (click)="YorumEkle(yorumMetni.value)">Yorum Ekle</button>
+    </div>
+</div>

@@ -1,0 +1,28 @@
+<mat-toolbar color="primary" class="mat-elevation-z6">
+    <span>{{dialogBaslik}}</span>
+</mat-toolbar>
+<div class="container" *ngIf="islem!='detay'">
+    <form [formGroup]="frm">
+        <mat-form-field appearance="outline">
+            <mat-label>Kategori Adı</mat-label>
+            <mat-select placeholder="Kategori Seçiniz" formControlName="KategoriId" required>
+                <mat-option [value]="kat.KategoriId" *ngFor="let kat of kategoriler">{{kat.KategoriAdi}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Adı</mat-label>
+            <input matInput placeholder="Adı" formControlName="Adi" required>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Dosya Uzantısı</mat-label>
+            <input matInput placeholder="Uzantı" formControlName="Uzanti" required>
+        </mat-form-field>
+    </form>
+    <button mat-raised-button color="primary" (click)="dialogRef.close(frm.value)" [disabled]="frm.invalid">Kaydet</button>&nbsp;
+    <button mat-raised-button color="wan" (click)="dialogRef.close()">İptal</button>&nbsp;
+</div>
+
+<div class="container" *ngIf="islem=='detay'">
+    <p>Bu işlemi gerçekleştirmek için gerekli yetkiniz yok !</p>
+</div>
+

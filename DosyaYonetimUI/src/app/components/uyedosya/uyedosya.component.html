@@ -1,0 +1,16 @@
+<div class="container">
+    <h1>{{uye.KullaniciAdi}} Adlı üyeye ait dosyalar</h1>
+    <h2 style="color: rgb(71, 71, 71);" *ngIf="dosyalar.length==0"><hr> Henüz bu üye dosya ekleme işlemi gerçekleştirmedi ! </h2>
+    <div *ngFor="let dosya of dosyalar">
+        <hr>
+        <h2>{{dosya.Adi}}</h2>
+        
+        <p>
+            <b>Kategori : </b><a href="#" [routerLink]="['/kategori',dosya.KategoriId]"> {{dosya.KategoriAdi}} </a> &nbsp;
+            <b>Paylaşan : </b> {{dosya.UyeKadi}}&nbsp;
+            <b>Yayın Tarihi : </b> {{dosya.Tarih}}&nbsp;
+            <a href="#" [routerLink]="['/dosya',dosya.DosyaId]">Oku</a>
+        </p>
+    </div>
+</div>
+

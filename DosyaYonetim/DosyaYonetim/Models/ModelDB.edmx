@@ -1,0 +1,401 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DosyaYonetimDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Dosya">
+          <Key>
+            <PropertyRef Name="DosyaId" />
+          </Key>
+          <Property Name="DosyaId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Adi" Type="nvarchar" MaxLength="100" />
+          <Property Name="Uzanti" Type="nvarchar" MaxLength="100" />
+          <Property Name="Foto" Type="nvarchar" MaxLength="100" />
+          <Property Name="Tarih" Type="datetime" />
+          <Property Name="KategoriId" Type="int" Nullable="false" />
+          <Property Name="UyeId" Type="int" Nullable="false" />
+          <Property Name="Goruntulenme" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DosyaEtiket">
+          <Key>
+            <PropertyRef Name="Etiket_EtiketId" />
+            <PropertyRef Name="Dosya_DosyaId" />
+          </Key>
+          <Property Name="Etiket_EtiketId" Type="int" Nullable="false" />
+          <Property Name="Dosya_DosyaId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Etiket">
+          <Key>
+            <PropertyRef Name="EtiketId" />
+          </Key>
+          <Property Name="EtiketId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EtiketAdi" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Kategori">
+          <Key>
+            <PropertyRef Name="KategoriId" />
+          </Key>
+          <Property Name="KategoriId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KategoriAdi" Type="nchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Uye">
+          <Key>
+            <PropertyRef Name="UyeId" />
+          </Key>
+          <Property Name="UyeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KullaniciAdi" Type="nvarchar" MaxLength="50" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" />
+          <Property Name="Sifre" Type="nvarchar" MaxLength="50" />
+          <Property Name="AdSoyad" Type="nvarchar" MaxLength="50" />
+          <Property Name="Foto" Type="nchar" MaxLength="100" />
+          <Property Name="UyeAdmin" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Yorum">
+          <Key>
+            <PropertyRef Name="YorumId" />
+          </Key>
+          <Property Name="YorumId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="YorumIcerik" Type="nchar" MaxLength="500" />
+          <Property Name="UyeId" Type="int" Nullable="false" />
+          <Property Name="DosyaId" Type="int" Nullable="false" />
+          <Property Name="Tarih" Type="datetime" />
+        </EntityType>
+        <Association Name="FK_Dosya_ToKategori">
+          <End Role="Kategori" Type="Self.Kategori" Multiplicity="1" />
+          <End Role="Dosya" Type="Self.Dosya" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kategori">
+              <PropertyRef Name="KategoriId" />
+            </Principal>
+            <Dependent Role="Dosya">
+              <PropertyRef Name="KategoriId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Dosya_Uye">
+          <End Role="Uye" Type="Self.Uye" Multiplicity="1" />
+          <End Role="Dosya" Type="Self.Dosya" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Uye">
+              <PropertyRef Name="UyeId" />
+            </Principal>
+            <Dependent Role="Dosya">
+              <PropertyRef Name="UyeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DosyaEtiket_Dosya">
+          <End Role="Dosya" Type="Self.Dosya" Multiplicity="1" />
+          <End Role="DosyaEtiket" Type="Self.DosyaEtiket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dosya">
+              <PropertyRef Name="DosyaId" />
+            </Principal>
+            <Dependent Role="DosyaEtiket">
+              <PropertyRef Name="Dosya_DosyaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DosyaEtiket_Etiket">
+          <End Role="Etiket" Type="Self.Etiket" Multiplicity="1" />
+          <End Role="DosyaEtiket" Type="Self.DosyaEtiket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Etiket">
+              <PropertyRef Name="EtiketId" />
+            </Principal>
+            <Dependent Role="DosyaEtiket">
+              <PropertyRef Name="Etiket_EtiketId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Yorum_Dosya">
+          <End Role="Dosya" Type="Self.Dosya" Multiplicity="1" />
+          <End Role="Yorum" Type="Self.Yorum" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dosya">
+              <PropertyRef Name="DosyaId" />
+            </Principal>
+            <Dependent Role="Yorum">
+              <PropertyRef Name="DosyaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Yorum_Uye">
+          <End Role="Uye" Type="Self.Uye" Multiplicity="1" />
+          <End Role="Yorum" Type="Self.Yorum" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Uye">
+              <PropertyRef Name="UyeId" />
+            </Principal>
+            <Dependent Role="Yorum">
+              <PropertyRef Name="UyeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DosyaYonetimDBModelStoreContainer">
+          <EntitySet Name="Dosya" EntityType="Self.Dosya" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DosyaEtiket" EntityType="Self.DosyaEtiket" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Etiket" EntityType="Self.Etiket" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Kategori" EntityType="Self.Kategori" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Uye" EntityType="Self.Uye" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Yorum" EntityType="Self.Yorum" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Dosya_ToKategori" Association="Self.FK_Dosya_ToKategori">
+            <End Role="Kategori" EntitySet="Kategori" />
+            <End Role="Dosya" EntitySet="Dosya" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Dosya_Uye" Association="Self.FK_Dosya_Uye">
+            <End Role="Uye" EntitySet="Uye" />
+            <End Role="Dosya" EntitySet="Dosya" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DosyaEtiket_Dosya" Association="Self.FK_DosyaEtiket_Dosya">
+            <End Role="Dosya" EntitySet="Dosya" />
+            <End Role="DosyaEtiket" EntitySet="DosyaEtiket" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DosyaEtiket_Etiket" Association="Self.FK_DosyaEtiket_Etiket">
+            <End Role="Etiket" EntitySet="Etiket" />
+            <End Role="DosyaEtiket" EntitySet="DosyaEtiket" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Yorum_Dosya" Association="Self.FK_Yorum_Dosya">
+            <End Role="Dosya" EntitySet="Dosya" />
+            <End Role="Yorum" EntitySet="Yorum" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Yorum_Uye" Association="Self.FK_Yorum_Uye">
+            <End Role="Uye" EntitySet="Uye" />
+            <End Role="Yorum" EntitySet="Yorum" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DosyaYonetimDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Dosya">
+          <Key>
+            <PropertyRef Name="DosyaId" />
+          </Key>
+          <Property Name="DosyaId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Adi" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Uzanti" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Foto" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Tarih" Type="DateTime" Precision="3" />
+          <Property Name="KategoriId" Type="Int32" Nullable="false" />
+          <Property Name="UyeId" Type="Int32" Nullable="false" />
+          <Property Name="Goruntulenme" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Kategori" Relationship="Self.FK_Dosya_ToKategori" FromRole="Dosya" ToRole="Kategori" />
+          <NavigationProperty Name="Uye" Relationship="Self.FK_Dosya_Uye" FromRole="Dosya" ToRole="Uye" />
+          <NavigationProperty Name="Yorum" Relationship="Self.FK_Yorum_Dosya" FromRole="Dosya" ToRole="Yorum" />
+          <NavigationProperty Name="Etiket" Relationship="Self.DosyaEtiket" FromRole="Dosya" ToRole="Etiket" />
+        </EntityType>
+        <EntityType Name="Etiket">
+          <Key>
+            <PropertyRef Name="EtiketId" />
+          </Key>
+          <Property Name="EtiketId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EtiketAdi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Dosya" Relationship="Self.DosyaEtiket" FromRole="Etiket" ToRole="Dosya" />
+        </EntityType>
+        <EntityType Name="Kategori">
+          <Key>
+            <PropertyRef Name="KategoriId" />
+          </Key>
+          <Property Name="KategoriId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KategoriAdi" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Dosya" Relationship="Self.FK_Dosya_ToKategori" FromRole="Kategori" ToRole="Dosya" />
+        </EntityType>
+        <EntityType Name="Uye">
+          <Key>
+            <PropertyRef Name="UyeId" />
+          </Key>
+          <Property Name="UyeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KullaniciAdi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Sifre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AdSoyad" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Foto" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+          <Property Name="UyeAdmin" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Dosya" Relationship="Self.FK_Dosya_Uye" FromRole="Uye" ToRole="Dosya" />
+          <NavigationProperty Name="Yorum" Relationship="Self.FK_Yorum_Uye" FromRole="Uye" ToRole="Yorum" />
+        </EntityType>
+        <EntityType Name="Yorum">
+          <Key>
+            <PropertyRef Name="YorumId" />
+          </Key>
+          <Property Name="YorumId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="YorumIcerik" Type="String" MaxLength="500" FixedLength="true" Unicode="true" />
+          <Property Name="UyeId" Type="Int32" Nullable="false" />
+          <Property Name="DosyaId" Type="Int32" Nullable="false" />
+          <Property Name="Tarih" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Dosya" Relationship="Self.FK_Yorum_Dosya" FromRole="Yorum" ToRole="Dosya" />
+          <NavigationProperty Name="Uye" Relationship="Self.FK_Yorum_Uye" FromRole="Yorum" ToRole="Uye" />
+        </EntityType>
+        <Association Name="FK_Dosya_ToKategori">
+          <End Role="Kategori" Type="Self.Kategori" Multiplicity="1" />
+          <End Role="Dosya" Type="Self.Dosya" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kategori">
+              <PropertyRef Name="KategoriId" />
+            </Principal>
+            <Dependent Role="Dosya">
+              <PropertyRef Name="KategoriId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Dosya_Uye">
+          <End Role="Uye" Type="Self.Uye" Multiplicity="1" />
+          <End Role="Dosya" Type="Self.Dosya" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Uye">
+              <PropertyRef Name="UyeId" />
+            </Principal>
+            <Dependent Role="Dosya">
+              <PropertyRef Name="UyeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Yorum_Dosya">
+          <End Role="Dosya" Type="Self.Dosya" Multiplicity="1" />
+          <End Role="Yorum" Type="Self.Yorum" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dosya">
+              <PropertyRef Name="DosyaId" />
+            </Principal>
+            <Dependent Role="Yorum">
+              <PropertyRef Name="DosyaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Yorum_Uye">
+          <End Role="Uye" Type="Self.Uye" Multiplicity="1" />
+          <End Role="Yorum" Type="Self.Yorum" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Uye">
+              <PropertyRef Name="UyeId" />
+            </Principal>
+            <Dependent Role="Yorum">
+              <PropertyRef Name="UyeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="DosyaEtiket">
+          <End Role="Dosya" Type="Self.Dosya" Multiplicity="*" />
+          <End Role="Etiket" Type="Self.Etiket" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="DosyaYonetimDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Dosya" EntityType="Self.Dosya" />
+          <EntitySet Name="Etiket" EntityType="Self.Etiket" />
+          <EntitySet Name="Kategori" EntityType="Self.Kategori" />
+          <EntitySet Name="Uye" EntityType="Self.Uye" />
+          <EntitySet Name="Yorum" EntityType="Self.Yorum" />
+          <AssociationSet Name="FK_Dosya_ToKategori" Association="Self.FK_Dosya_ToKategori">
+            <End Role="Kategori" EntitySet="Kategori" />
+            <End Role="Dosya" EntitySet="Dosya" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Dosya_Uye" Association="Self.FK_Dosya_Uye">
+            <End Role="Uye" EntitySet="Uye" />
+            <End Role="Dosya" EntitySet="Dosya" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Yorum_Dosya" Association="Self.FK_Yorum_Dosya">
+            <End Role="Dosya" EntitySet="Dosya" />
+            <End Role="Yorum" EntitySet="Yorum" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Yorum_Uye" Association="Self.FK_Yorum_Uye">
+            <End Role="Uye" EntitySet="Uye" />
+            <End Role="Yorum" EntitySet="Yorum" />
+          </AssociationSet>
+          <AssociationSet Name="DosyaEtiket" Association="Self.DosyaEtiket">
+            <End Role="Dosya" EntitySet="Dosya" />
+            <End Role="Etiket" EntitySet="Etiket" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DosyaYonetimDBModelStoreContainer" CdmEntityContainer="DosyaYonetimDBEntities">
+    <EntitySetMapping Name="Dosya">
+      <EntityTypeMapping TypeName="IsTypeOf(DosyaYonetimDBModel.Dosya)">
+        <MappingFragment StoreEntitySet="Dosya">
+          <ScalarProperty Name="DosyaId" ColumnName="DosyaId" />
+          <ScalarProperty Name="Adi" ColumnName="Adi" />
+          <ScalarProperty Name="Uzanti" ColumnName="Uzanti" />
+          <ScalarProperty Name="Foto" ColumnName="Foto" />
+          <ScalarProperty Name="Tarih" ColumnName="Tarih" />
+          <ScalarProperty Name="KategoriId" ColumnName="KategoriId" />
+          <ScalarProperty Name="UyeId" ColumnName="UyeId" />
+          <ScalarProperty Name="Goruntulenme" ColumnName="Goruntulenme" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Etiket">
+      <EntityTypeMapping TypeName="IsTypeOf(DosyaYonetimDBModel.Etiket)">
+        <MappingFragment StoreEntitySet="Etiket">
+          <ScalarProperty Name="EtiketId" ColumnName="EtiketId" />
+          <ScalarProperty Name="EtiketAdi" ColumnName="EtiketAdi" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Kategori">
+      <EntityTypeMapping TypeName="IsTypeOf(DosyaYonetimDBModel.Kategori)">
+        <MappingFragment StoreEntitySet="Kategori">
+          <ScalarProperty Name="KategoriId" ColumnName="KategoriId" />
+          <ScalarProperty Name="KategoriAdi" ColumnName="KategoriAdi" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Uye">
+      <EntityTypeMapping TypeName="IsTypeOf(DosyaYonetimDBModel.Uye)">
+        <MappingFragment StoreEntitySet="Uye">
+          <ScalarProperty Name="UyeId" ColumnName="UyeId" />
+          <ScalarProperty Name="KullaniciAdi" ColumnName="KullaniciAdi" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Sifre" ColumnName="Sifre" />
+          <ScalarProperty Name="AdSoyad" ColumnName="AdSoyad" />
+          <ScalarProperty Name="Foto" ColumnName="Foto" />
+          <ScalarProperty Name="UyeAdmin" ColumnName="UyeAdmin" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Yorum">
+      <EntityTypeMapping TypeName="IsTypeOf(DosyaYonetimDBModel.Yorum)">
+        <MappingFragment StoreEntitySet="Yorum">
+          <ScalarProperty Name="YorumId" ColumnName="YorumId" />
+          <ScalarProperty Name="YorumIcerik" ColumnName="YorumIcerik" />
+          <ScalarProperty Name="UyeId" ColumnName="UyeId" />
+          <ScalarProperty Name="DosyaId" ColumnName="DosyaId" />
+          <ScalarProperty Name="Tarih" ColumnName="Tarih" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="DosyaEtiket" TypeName="DosyaYonetimDBModel.DosyaEtiket" StoreEntitySet="DosyaEtiket">
+      <EndProperty Name="Dosya">
+        <ScalarProperty Name="DosyaId" ColumnName="Dosya_DosyaId" />
+      </EndProperty>
+      <EndProperty Name="Etiket">
+        <ScalarProperty Name="EtiketId" ColumnName="Etiket_EtiketId" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

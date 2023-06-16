@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="ddd450172a8d4143b375aa46cd81a754" Name="Diagram1">
+        <EntityTypeShape EntityType="DosyaYonetimDBModel.Dosya" Width="1.5" PointX="3" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DosyaYonetimDBModel.Etiket" Width="1.5" PointX="5.25" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DosyaYonetimDBModel.Kategori" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DosyaYonetimDBModel.Uye" Width="1.5" PointX="0.75" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DosyaYonetimDBModel.Yorum" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="DosyaYonetimDBModel.FK_Dosya_ToKategori" ManuallyRouted="false" />
+        <AssociationConnector Association="DosyaYonetimDBModel.FK_Dosya_Uye" ManuallyRouted="false" />
+        <AssociationConnector Association="DosyaYonetimDBModel.FK_Yorum_Dosya" ManuallyRouted="false" />
+        <AssociationConnector Association="DosyaYonetimDBModel.FK_Yorum_Uye" ManuallyRouted="false" />
+        <AssociationConnector Association="DosyaYonetimDBModel.DosyaEtiket" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
