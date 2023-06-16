@@ -1,4 +1,4 @@
 # DosyaYonetim
 
-![alt text](http://url/to/i![DosyaYonetimDb](https://github.com/alkanmert/DosyaYonetim/assets/73124727/d30209ff-191a-47aa-8d0d-2e6c65ceaf59)
-mg.png)
+![alt text](![DosyaYonetimDb](https://github.com/alkanmert/DosyaYonetim/assets/73124727/9b18aafe-bb05-4ee4-af4b-c23ca0b8d5da)
+)
